@@ -37,8 +37,7 @@ const LoadingCounter = ({ onComplete }: LoadingCounterProps) => {
 
     return () => {
       clearTimeout(timeout);
-    }; 
-
+    };
   }, [order]);
 
   return (
@@ -96,10 +95,6 @@ function shuffle([...array]: string[]) {
 }
 
 export default LoadingCounter;
-
-
-
-
 
 // "use client";
 
