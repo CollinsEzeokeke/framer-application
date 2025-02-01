@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { Star } from "lucide-react";
 import clsx from "clsx";
+import FlipText from "./scramnling";
 
 const COLORS = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 export default function Hero() {
@@ -28,7 +29,7 @@ export default function Hero() {
       <StarCanvass color={color} />
       <motion.div
         className="flex items-center justify-center h-screen bg-transparent flex-col  "
-        layout
+        // layout
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -55,14 +56,15 @@ export default function Hero() {
         >
           CryptoVerse
         </motion.h1>
-        <section className="justify-center flex items-center h-[30vh]">
-          <motion.p className="font-bold h-20 max-w-[50vw] text-2xl">
-            Welcome to Cryptoverse – your gateway to the crypto universe. Track
-            real-time prices, analyze market trends, and explore thousands of
-            digital currencies all in one place. Stay ahead with live updates
-            and make informed decisions in the ever-evolving world of
-            cryptocurrency.
-          </motion.p>
+        <section className="justify-center flex items-center h-[30vh] relative z-[100]">
+          <motion.div className="font-bold h-20 flex-wrap text-2xl pointer-events-auto">
+            <FlipText>
+              {`Welcome to Cryptoverse your gateway to the crypto universe. 
+    Track real-time prices, analyze market trends, and explore thousands 
+    of digital currencies all in one place. Stay ahead with live updates 
+    and make informed decisions in the ever-evolving world of cryptocurrency.`}
+            </FlipText>
+          </motion.div>
         </section>
       </motion.div>
     </>
