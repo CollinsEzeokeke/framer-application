@@ -14,10 +14,6 @@ const LoadingCounter = ({ onComplete }: LoadingCounterProps) => {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setOrder(shuffle([...order]));
-    }, 200);
-
     const count = animate(0, 100, {
       duration: 2,
       onUpdate: (latest) => {
@@ -31,9 +27,19 @@ const LoadingCounter = ({ onComplete }: LoadingCounterProps) => {
 
     return () => {
       count.stop();
-      clearTimeout(timeout);
     };
-  }, []);
+  }, [onComplete]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setOrder(shuffle([...order]));
+    }, 200);
+
+    return () => {
+      clearTimeout(timeout);
+    }; 
+
+  }, [order]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -66,8 +72,8 @@ const LoadingCounter = ({ onComplete }: LoadingCounterProps) => {
                 exit={{ y: 20, opacity: 0 }}
                 transition={{
                   damping: 20,
-                  stiffness: 300,
-                  duration: 0.5,
+                  stiffness: 150,
+                  duration: 1.5,
                   type: "spring",
                 }}
               />
