@@ -418,12 +418,91 @@
 
 
 
+// "use client"
+
+// import { useState, useEffect } from "react"
+// import { motion } from "framer-motion"
+// import clsx from "clsx"
+
+
+// type AnimatedTextProps = {
+//   children: string | string[]
+//   className?: string
+// }
+
+// export const AnimatedText = ({
+//   children,
+//   className = "",
+// }: AnimatedTextProps) => {
+//   const [isHovered, setIsHovered] = useState(false)
+//   const [isMounted, setIsMounted] = useState(false)
+
+//   useEffect(() => {
+//     setIsMounted(true)
+//   }, [])
+
+//   const text = Array.isArray(children) ? children.join("") : children
+//   const letters = text.split("")
+
+//   // Animation configuration
+//   const getRandomScatter = () => ({
+//     x: Math.random() * 100 - 50, // Random value between -50 and 50
+//     y: Math.random() * 100 - 50, // Random value between -50 and 50
+//     rotate: Math.random() * 360, // Random rotation
+//     scale: 1 + Math.random() * 0.5, // Random scale between 1 and 1.5
+//   })
+
+//   if (!isMounted) return null
+
+//   return (
+//     <div
+//       className={clsx("inline-block cursor-pointer", className, className='bg-yellow-500')}
+//       onMouseEnter={() => setIsHovered(true)}
+//       onMouseLeave={() => setIsHovered(false)}
+//     >
+//       {letters.map((letter, index) => (
+//         <motion.span
+//           key={index}
+//           animate={
+//             isHovered
+//               ? {
+//                   ...getRandomScatter(),
+//                   transition: {
+//                     type: "spring",
+//                     damping: 10,
+//                     stiffness: 100,
+//                   },
+//                 }
+//               : {
+//                   x: 0,
+//                   y: 0,
+//                   rotate: 0,
+//                   scale: 1,
+//                   transition: {
+//                     type: "spring",
+//                     damping: 15,
+//                     stiffness: 150,
+//                   },
+//                 }
+//           }
+//           className="inline-block"
+//           style={{ display: 'inline-block' }}
+//         >
+//           {letter === " " ? "\u00A0" : letter}
+//         </motion.span>
+//       ))}
+//     </div>
+//   )
+// }
+
+// export default AnimatedText
+
+
 "use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import clsx from "clsx"
-
 
 type AnimatedTextProps = {
   children: string | string[]
@@ -446,52 +525,50 @@ export const AnimatedText = ({
 
   // Animation configuration
   const getRandomScatter = () => ({
-    x: Math.random() * 100 - 50, // Random value between -50 and 50
-    y: Math.random() * 100 - 50, // Random value between -50 and 50
-    rotate: Math.random() * 360, // Random rotation
-    scale: 1 + Math.random() * 0.5, // Random scale between 1 and 1.5
+    x: Math.random() * 100 - 50,
+    y: Math.random() * 100 - 50,
+    rotate: Math.random() * 360,
+    scale: 1 + Math.random() * 0.5,
   })
 
   if (!isMounted) return null
 
   return (
-    <div
-      className={clsx("inline-block cursor-pointer", className)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <motion.div
+      className={clsx("inline-block relative", className)}
+      initial={false}
+      whileHover="hover"
+      animate="rest"
     >
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          animate={
-            isHovered
-              ? {
-                  ...getRandomScatter(),
-                  transition: {
-                    type: "spring",
-                    damping: 10,
-                    stiffness: 100,
-                  },
-                }
-              : {
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                  scale: 1,
-                  transition: {
-                    type: "spring",
-                    damping: 15,
-                    stiffness: 150,
-                  },
-                }
-          }
-          className="inline-block"
-          style={{ display: 'inline-block' }}
-        >
-          {letter === " " ? "\u00A0" : letter}
-        </motion.span>
-      ))}
-    </div>
+      <div 
+        className="cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {letters.map((letter, index) => (
+          <motion.span
+            key={index}
+            variants={{
+              hover: getRandomScatter(),
+              rest: {
+                x: 0,
+                y: 0,
+                rotate: 0,
+                scale: 1,
+              }
+            }}
+            transition={{
+              type: "spring",
+              damping: isHovered ? 10 : 15,
+              stiffness: isHovered ? 100 : 150,
+            }}
+            className="inline-block"
+          >
+            {letter === " " ? "\u00A0" : letter}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
   )
 }
 
