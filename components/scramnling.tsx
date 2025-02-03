@@ -513,7 +513,6 @@ export const AnimatedText = ({
   children,
   className = "",
 }: AnimatedTextProps) => {
-  const [isHovered, setIsHovered] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -542,8 +541,6 @@ export const AnimatedText = ({
     >
       <div 
         className="cursor-pointer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         {letters.map((letter, index) => (
           <motion.span
@@ -559,8 +556,8 @@ export const AnimatedText = ({
             }}
             transition={{
               type: "spring",
-              damping: isHovered ? 10 : 15,
-              stiffness: isHovered ? 100 : 150,
+              damping: 10,
+              stiffness: 100
             }}
             className="inline-block"
           >
