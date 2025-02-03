@@ -166,28 +166,6 @@ export default function Hero() {
   return (
     <div className="relative h-screen overflow-hidden">
       <StarCanvas color={color} />
-      {/* <motion.div
-        className="flex items-center justify-center h-full bg-transparent flex-col px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 1,
-          delay: 0.5,
-          ease: "easeInOut",
-        }}
-        style={{ backgroundImage }}
-      >
-        <motion.h1
-          className="text-6xl text-white font-bold mb-8"
-          initial={{ scale: 0, opacity: 0, y: -40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            bounce: 0.4,
-            duration: 0.8,
-          }}
-        > */}
-
       <motion.div
         className="flex items-center justify-center h-screen bg-transparent flex-col"
         // layout

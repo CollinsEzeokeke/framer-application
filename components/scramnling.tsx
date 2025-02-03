@@ -498,6 +498,81 @@
 // export default AnimatedText
 
 
+// "use client"
+
+// import { useState, useEffect } from "react"
+// import { motion } from "framer-motion"
+// import clsx from "clsx"
+
+// type AnimatedTextProps = {
+//   children: string | string[]
+//   className?: string
+// }
+
+// export const AnimatedText = ({
+//   children,
+//   className = "",
+// }: AnimatedTextProps) => {
+//   const [isMounted, setIsMounted] = useState(false)
+
+//   useEffect(() => {
+//     setIsMounted(true)
+//   }, [])
+
+//   const text = Array.isArray(children) ? children.join("") : children
+//   const letters = text.split("")
+
+//   // Animation configuration
+//   const getRandomScatter = () => ({
+//     x: Math.random() * 100 - 50,
+//     y: Math.random() * 100 - 50,
+//     rotate: Math.random() * 360,
+//     scale: 1 + Math.random() * 0.5,
+//   })
+
+//   if (!isMounted) return null
+
+//   return (
+//     <motion.div
+//       className={clsx("inline-block relative", className)}
+//       initial={false}
+//       whileHover="hover"
+//       animate="rest"
+//     >
+//       <div 
+//         className="cursor-pointer"
+//       >
+//         {letters.map((letter, index) => (
+//           <motion.span
+//             key={index}
+//             variants={{
+//               hover: getRandomScatter(),
+//               rest: {
+//                 x: 0,
+//                 y: 0,
+//                 rotate: 0,
+//                 scale: 1,
+//               }
+//             }}
+//             transition={{
+//               type: "spring",
+//               damping: 10,
+//               stiffness: 100,
+//               duration: 0.2
+//             }}
+//             className="inline-block"
+//           >
+//             {letter === " " ? "\u00A0" : letter}
+//           </motion.span>
+//         ))}
+//       </div>
+//     </motion.div>
+//   )
+// }
+
+// export default AnimatedText
+
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -514,6 +589,7 @@ export const AnimatedText = ({
   className = "",
 }: AnimatedTextProps) => {
   const [isMounted, setIsMounted] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
@@ -522,42 +598,42 @@ export const AnimatedText = ({
   const text = Array.isArray(children) ? children.join("") : children
   const letters = text.split("")
 
-  // Animation configuration
   const getRandomScatter = () => ({
-    x: Math.random() * 100 - 50,
-    y: Math.random() * 100 - 50,
+    x: Math.random() * 50 - 25,
+    y: Math.random() * 50 - 25,
     rotate: Math.random() * 360,
     scale: 1 + Math.random() * 0.5,
   })
+
+  const handleHoverStart = () => {
+    if (!isAnimating) {
+      setIsAnimating(true)
+      setTimeout(() => {
+        setIsAnimating(false)
+      }, 400)
+    }
+  }
 
   if (!isMounted) return null
 
   return (
     <motion.div
       className={clsx("inline-block relative", className)}
-      initial={false}
-      whileHover="hover"
-      animate="rest"
+      onHoverStart={handleHoverStart}
     >
-      <div 
-        className="cursor-pointer"
-      >
+      <div className="cursor-pointer">
         {letters.map((letter, index) => (
           <motion.span
             key={index}
-            variants={{
-              hover: getRandomScatter(),
-              rest: {
-                x: 0,
-                y: 0,
-                rotate: 0,
-                scale: 1,
-              }
+            animate={isAnimating ? getRandomScatter() : {
+              x: 0,
+              y: 0,
+              rotate: 0,
+              scale: 1,
             }}
             transition={{
-              type: "spring",
-              damping: 10,
-              stiffness: 100
+              duration: isAnimating ? 0.5 : 0.3,
+              ease: isAnimating ? "easeOut" : "easeIn",
             }}
             className="inline-block"
           >
