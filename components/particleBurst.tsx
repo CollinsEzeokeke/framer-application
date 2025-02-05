@@ -15,9 +15,8 @@ interface Particle {
 export default function ParticleBurst() {
   const {isChanged } = useTruth()
   const [particles, setParticles] = useState<Particle[]>([])
-  const isActive = isChanged;
   useEffect(() => {
-    if (isActive) {
+    if (isChanged) {
       const newParticles = Array.from({ length: 100 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
@@ -27,9 +26,9 @@ export default function ParticleBurst() {
       }))
       setParticles(newParticles)
     }
-  }, [isActive])
+  }, [isChanged])
 
-  if (!isActive) return null
+  if (!isChanged) return null
 
   return (
     <motion.div

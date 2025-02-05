@@ -46,14 +46,15 @@ export default function FeaturesSection() {
     if (isChanged === true) {
       const timer = setTimeout(() => {
         setShowBurst(true);
-      }, 3000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, []);
   return (
     <>
+        <ParticleBurst/>
+
       <div className="overflow-hidden h-full">
-        {showBurst && <ParticleBurst />}
         {/* Animated background elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute -top-[40%] -left-[40%] w-[80vw] h-[80vh] bg-gradient-conic from-cyan-500 via-transparent to-transparent rounded-full animate-pulse mix-blend-screen" />
