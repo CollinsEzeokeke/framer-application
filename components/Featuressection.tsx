@@ -1,86 +1,8 @@
-// "use client"
+"use client";
 
-// import { useRef, useState, useEffect } from "react"
-// import { useScroll, useSpring } from "framer-motion"
-// import FeatureCard from "@/components/Featurecard"
-
-// const features = [
-//   {
-//     title: "Feature 1",
-//     description:
-//       "Description for feature 1. This innovative feature enhances user experience by providing intuitive navigation and seamless interaction.",
-//     image: "/placeholder.svg?height=300&width=400",
-//   },
-//   {
-//     title: "Feature 2",
-//     description:
-//       "Description for feature 2. Our advanced algorithms ensure optimal performance and efficiency, setting new standards in the industry.",
-//     image: "/placeholder.svg?height=300&width=400",
-//   },
-//   {
-//     title: "Feature 3",
-//     description:
-//       "Description for feature 3. With cutting-edge security measures, your data is protected at all times, giving you peace of mind.",
-//     image: "/placeholder.svg?height=300&width=400",
-//   },
-//   {
-//     title: "Feature 4",
-//     description:
-//       "Description for feature 4. Experience unparalleled customization options, tailoring the application to your specific needs and preferences.",
-//     image: "/placeholder.svg?height=300&width=400",
-//   },
-// ]
-
-// export default function FeaturesSection() {
-//   const containerRef = useRef<HTMLDivElement>(null)
-//   const [currentFeature, setCurrentFeature] = useState(0)
-
-//   const { scrollYProgress } = useScroll({
-//     target: containerRef,
-//     offset: ["start start", "end end"],
-//   })
-
-//   const smoothProgress = useSpring(scrollYProgress, {
-//     stiffness: 100,
-//     damping: 30,
-//     restDelta: 0.001,
-//   })
-
-//   useEffect(() => {
-//     const unsubscribe = smoothProgress.onChange((latest) => {
-//       const newFeature = Math.min(features.length - 1, Math.floor(latest * features.length))
-//       setCurrentFeature(newFeature)
-//     })
-
-//     return () => unsubscribe()
-//   }, [smoothProgress])
-
-//   return (
-//     <div ref={containerRef} className="relative min-h-screen">
-//       <div className="sticky top-0 h-screen overflow-hidden">
-//         {features.map((feature, index) => (
-//           <FeatureCard
-//             key={index}
-//             feature={feature}
-//             isActive={index === currentFeature}
-//             index={index}
-//             total={features.length}
-//           />
-//         ))}
-//       </div>
-//       <div style={{ height: `${features.length * 100}vh` }} />
-//     </div>
-//   )
-// }
-
-
-
-
-"use client"
-
-import { useRef, useState, useEffect } from "react"
-import { useScroll, useSpring } from "framer-motion"
-import FeatureCard from "@/components/Featurecard"
+import { useRef } from "react";
+import FeatureCard from "@/components/Featurecard";
+import TextGradientScroll from "./ui/scrollGradient";
 
 const features = [
   {
@@ -111,46 +33,40 @@ const features = [
     image: "/placeholder.svg?height=300&width=400",
     color: "#EF4444", // red-500
   },
-]
+];
 
 export default function FeaturesSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [currentFeature, setCurrentFeature] = useState(0)
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
-
-  useEffect(() => {
-    const unsubscribe = smoothProgress.onChange((latest) => {
-      const newFeature = Math.min(features.length - 1, Math.floor(latest * features.length))
-      setCurrentFeature(newFeature)
-    })
-
-    return () => unsubscribe()
-  }, [smoothProgress])
-
+  const containerRef = useRef<HTMLDivElement>(null);
   return (
-    <div ref={containerRef} className="relative">
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {features.map((feature, index) => (
-          <FeatureCard
-            key={index}
-            feature={feature}
-            currentFeature={currentFeature}
-            index={index}
-          />
-        ))}
-      </div>
-      <div style={{ height: `${features.length * 100}vh` }} />
-    </div>
-  )
-}
+    <>
+      <div className="bg-yellow-500 overflow-hidden h-full">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute -top-[40%] -left-[40%] w-[80vw] h-[80vh] bg-gradient-conic from-cyan-500 via-transparent to-transparent rounded-full animate-pulse mix-blend-screen" />
+        </div>
 
+        <div className="relative h-[50vh] flex items-center justify-center flex-col px-4 md:px-8">
+          <h2 className="font-bold text-6xl mb-6 text-transparent bg-clip-text text-white tracking-tighter">
+            <TextGradientScroll
+              text="Features"
+              textOpacity="soft"
+              type="letter"
+            />
+          </h2>
+          <h3 className="text-lg text-center opacity-70 text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            <TextGradientScroll
+              text="With ground breaking and renovative approach..."
+              textOpacity="soft"
+              type="letter"
+              className="font-medium"
+            />
+          </h3>
+        </div>
+        <div className="h-full absolute">
+          <FeatureCard feature={features} />
+        </div>
+      </div>
+      <div className="mb-[5000px]" />
+    </>
+  );
+}
