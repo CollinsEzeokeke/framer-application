@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <ReactLenis root>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
         {children}
       </body>

@@ -39,17 +39,6 @@ const features = [
 ];
 
 export default function FeaturesSection() {
-  const [showBurst, setShowBurst] = useState(false);
-  const { isChanged } = useTruth();
-
-  useEffect(() => {
-    if (isChanged === true) {
-      const timer = setTimeout(() => {
-        setShowBurst(true);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, []);
   return (
     <>
         <ParticleBurst/>
