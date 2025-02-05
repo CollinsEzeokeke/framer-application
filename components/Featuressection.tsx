@@ -3,8 +3,6 @@
 import FeatureCard from "@/components/Featurecard";
 import TextGradientScroll from "./ui/scrollGradient";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useTruth } from "@/hooks/store";
 import ParticleBurst from "./particleBurst";
 
 const features = [
