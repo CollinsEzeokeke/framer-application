@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef } from "react";
 import FeatureCard from "@/components/Featurecard";
 import TextGradientScroll from "./ui/scrollGradient";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useTruth } from "@/hooks/store";
+import ParticleBurst from "./particleBurst";
 
 const features = [
   {
@@ -36,16 +39,27 @@ const features = [
 ];
 
 export default function FeaturesSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [showBurst, setShowBurst] = useState(false);
+  const { isChanged } = useTruth();
+
+  useEffect(() => {
+    if (isChanged === true) {
+      const timer = setTimeout(() => {
+        setShowBurst(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
   return (
     <>
-      <div className="bg-yellow-500 overflow-hidden h-full">
+      <div className="overflow-hidden h-full">
+        {showBurst && <ParticleBurst />}
         {/* Animated background elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute -top-[40%] -left-[40%] w-[80vw] h-[80vh] bg-gradient-conic from-cyan-500 via-transparent to-transparent rounded-full animate-pulse mix-blend-screen" />
         </div>
 
-        <div className="relative h-[50vh] flex items-center justify-center flex-col px-4 md:px-8">
+        <div className="relative h-[40vh] flex items-center justify-center flex-col px-4 md:px-8">
           <h2 className="font-bold text-6xl mb-6 text-transparent bg-clip-text text-white tracking-tighter">
             <TextGradientScroll
               text="Features"
@@ -62,9 +76,9 @@ export default function FeaturesSection() {
             />
           </h3>
         </div>
-        <div className="h-full absolute">
-          <FeatureCard feature={features} />
-        </div>
+        <motion.div className="h-full absolute">
+          <FeatureCard features={features} />
+        </motion.div>
       </div>
       <div className="mb-[5000px]" />
     </>
