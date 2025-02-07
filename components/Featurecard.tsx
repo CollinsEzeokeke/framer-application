@@ -94,7 +94,6 @@ export default function FeatureCard({ features }: FeatureCardProps) {
     }
   }, [stickyIndex, borderControls]);
 
-  console.log(isChanged)
   return (
     <div
       className="max-h-[300vh] flex flex-col justify-start items-center w-screen"
