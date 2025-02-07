@@ -39,7 +39,7 @@ const features = [
 export default function FeaturesSection() {
   return (
     <>
-        <ParticleBurst/>
+      <ParticleBurst />
 
       <div className="overflow-hidden h-full">
         {/* Animated background elements */}
@@ -64,11 +64,12 @@ export default function FeaturesSection() {
             />
           </h3>
         </div>
-        <motion.div className="h-full absolute">
-          <FeatureCard features={features} />
-        </motion.div>
+          <motion.div className="absolute">
+            <FeatureCard features={features} />
+          </motion.div>
+          {/* Add an empty div with the same height as FeatureCard */}
+          <div className="h-[300vh]" />
       </div>
-      <div className="mb-[5000px]" />
     </>
   );
 }
