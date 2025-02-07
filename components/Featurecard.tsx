@@ -641,7 +641,7 @@ export default function FeatureCard({ features }: FeatureCardProps) {
       {features.map((item, index) => (
         <motion.div
           key={index}
-          className="h-[50vh] sticky top-0 flex items-center justify-center w-[80vw] rounded-lg"
+          className="h-[80vh] sticky top-0 flex items-center justify-center w-[80vw] rounded-lg"
           style={{
             top: `${index * 2}rem`,
             background: `radial-gradient(125% 125% at 100% 0%, #020617 50%, ${item.color})`,
