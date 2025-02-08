@@ -30,7 +30,7 @@ export function FooterPhysics({
       if (typeof window !== "undefined") {
         setIsMobile(window.matchMedia("(max-width: 768px)").matches);
       }
-      console.log('this is the windows matchMedia',window.matchMedia('max-width: 768px'))
+      // console.log('this is the windows matchMedia',window.matchMedia("(max-width: 768px)").matches)
     };
 
     handleResize(); // Run on mount

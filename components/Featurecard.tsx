@@ -21,13 +21,14 @@ export default function FeatureCard({ features }: FeatureCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [stickyIndex, setStickyIndex] = useState(0);
   const borderControls = useAnimationControls();
-  const { setIsChanged, isChanged } = useTruth();
+  const { setIsChanged } = useTruth();
   const firstItemRef = useRef<HTMLDivElement>(null);
 
   // Add this useEffect for visibility detection
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log(entry.isIntersecting)
         setIsChanged(entry.isIntersecting);
       },
       {
@@ -45,7 +46,7 @@ export default function FeatureCard({ features }: FeatureCardProps) {
         observer.unobserve(firstItemRef.current);
       }
     };
-  }, [setIsChanged]);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,13 +62,13 @@ export default function FeatureCard({ features }: FeatureCardProps) {
           Math.min(newIndex, features.length - 1)
         );
 
-        if (firstItemRef.current) {
-          const { top: firstItemTop } =
-            firstItemRef.current.getBoundingClientRect();
-          setIsChanged(
-            firstItemTop <= window.innerHeight * 0.8 && firstItemTop >= 0
-          );
-        }
+        // if (firstItemRef.current) {
+        //   const { top: firstItemTop } =
+        //     firstItemRef.current.getBoundingClientRect();
+        //   setIsChanged(
+        //     firstItemTop <= window.innerHeight * 0.8 && firstItemTop >= 0
+        //   );
+        // }
 
         setStickyIndex(stickyIndex);
       }
